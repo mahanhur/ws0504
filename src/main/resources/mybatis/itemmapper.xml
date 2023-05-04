@@ -20,5 +20,16 @@
     <delete id="delete" parameterType="Integer">
         DELETE FROM item WHERE ID=#{id}
     </delete>
+    <select id="search" parameterType="ItemSearch" resultType="item">
+        SELECT * FROM item
+        <where>
+            <if test="name != null and !name.equals('')">
+                name like '%'||#{name}||'%'
+            </if>
+            <if test="price != null and !price.equals('')">
+                AND price &lt; #{price}
+            </if>
+        </where>
+    </select>
 
 </mapper>
